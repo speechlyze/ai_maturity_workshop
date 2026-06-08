@@ -14,8 +14,12 @@ import anthropic
 
 from backend.config import settings
 
-client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
-async_client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
+# Use a placeholder when the key is unset so the app still imports and serves the
+# frontend in a fresh Codespace. API calls then fail with a clear 401 instead of
+# the whole server failing to start at import time.
+_api_key = settings.anthropic_api_key or "ANTHROPIC_API_KEY_NOT_SET"
+client = anthropic.Anthropic(api_key=_api_key)
+async_client = anthropic.AsyncAnthropic(api_key=_api_key)
 MODEL = settings.model
 MAX_TOKENS = settings.max_tokens
 

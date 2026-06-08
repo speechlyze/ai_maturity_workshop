@@ -17,4 +17,5 @@ def health() -> dict:
         "retrieval": store.status(),
         "agent_available": AGENT_AVAILABLE,
         "oracle_enabled": settings.oracle_enabled,
+        "api_key_set": bool(settings.anthropic_api_key),
     }

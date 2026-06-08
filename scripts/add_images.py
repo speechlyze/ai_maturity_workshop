@@ -68,8 +68,8 @@ def add_sections(nb: dict, sections) -> int:
 
 
 def main() -> None:
-    ff = WS / "ai_maturity_form_factors.ipynb"
-    ev = WS / "ai_maturity_form_factors_with_evaluation.ipynb"
+    ff = WS / "ai_maturity_form_factors_complete.ipynb"
+    ev = WS / "ai_maturity_form_factors_with_evaluation_complete.ipynb"
 
     nb = json.loads(ff.read_text())
     n = add_sections(nb, FF_SECTIONS) + add_cover(nb)

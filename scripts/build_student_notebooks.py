@@ -396,9 +396,12 @@ Two exact-match evaluators for the classifier:
     },
 ]
 
+# nb key -> (complete source notebook, student output notebook)
 NB_FILES = {
-    "ff": WS / "ai_maturity_form_factors.ipynb",
-    "eval": WS / "ai_maturity_form_factors_with_evaluation.ipynb",
+    "ff": (WS / "ai_maturity_form_factors_complete.ipynb",
+           WS / "ai_maturity_form_factors_student.ipynb"),
+    "eval": (WS / "ai_maturity_form_factors_with_evaluation_complete.ipynb",
+             WS / "ai_maturity_form_factors_with_evaluation_student.ipynb"),
 }
 
 
@@ -428,7 +431,7 @@ def write_doc(spec: dict, solution: str) -> None:
 
 
 def build(nb_key: str) -> None:
-    src_path = NB_FILES[nb_key]
+    src_path, out = NB_FILES[nb_key]
     nb = json.loads(src_path.read_text(encoding="utf-8"))
     specs = [s for s in SPECS if s["nb"] == nb_key]
 
@@ -450,7 +453,6 @@ def build(nb_key: str) -> None:
         if count != 1:
             raise SystemExit(f"locator for TODO {num} matched {count} cells (expected exactly 1)")
 
-    out = src_path.with_name(src_path.stem + "_student.ipynb")
     nb["cells"] = new_cells
     out.write_text(json.dumps(nb, indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"{nb_key}: wrote {out.name}  (+{len(specs)} TODO docs)")

@@ -1,7 +1,7 @@
 # The AI Maturity Ladder — App
 
 A FastAPI + vanilla-JS application that turns the
-[`ai_maturity_form_factors.ipynb`](../ai_maturity_form_factors.ipynb) workshop
+[`ai_maturity_form_factors_complete.ipynb`](../ai_maturity_form_factors_complete.ipynb) workshop
 into an interactive, sleek (light/dark) web app. The sidebar is a literal ladder:
 each rung is one of the five AI form factors, climbing from a plain chatbot to an
 autonomous agent that writes and runs its own code.

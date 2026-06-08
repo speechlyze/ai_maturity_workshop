@@ -36,9 +36,9 @@ The workshop ships **complete** notebooks (the reference) and **student** notebo
 
 | Notebook | Variant | What it teaches | TODOs |
 |---|---|---|---|
-| [`ai_maturity_form_factors.ipynb`](ai_maturity_form_factors.ipynb) | ✅ Complete | The five form factors: chatbot → RAG → workflow → agent → autonomous agent. Oracle-backed RAG (vector / keyword / hybrid / graph + quantization), `claude-agent-sdk` for FF4–5. | — |
+| [`ai_maturity_form_factors_complete.ipynb`](ai_maturity_form_factors_complete.ipynb) | ✅ Complete | The five form factors: chatbot → RAG → workflow → agent → autonomous agent. Oracle-backed RAG (vector / keyword / hybrid / graph + quantization), `claude-agent-sdk` for FF4–5. | — |
 | [`ai_maturity_form_factors_student.ipynb`](ai_maturity_form_factors_student.ipynb) | ✏️ Student | Same, with 7 cells to complete | [1](docs/todo1.md)–[7](docs/todo7.md) |
-| [`ai_maturity_form_factors_with_evaluation.ipynb`](ai_maturity_form_factors_with_evaluation.ipynb) | ✅ Complete | Evaluating the ladder with **LangSmith**: retrieval metrics (recall@k, MRR), LLM-as-judge (correctness & groundedness), classifier accuracy. | — |
+| [`ai_maturity_form_factors_with_evaluation_complete.ipynb`](ai_maturity_form_factors_with_evaluation_complete.ipynb) | ✅ Complete | Evaluating the ladder with **LangSmith**: retrieval metrics (recall@k, MRR), LLM-as-judge (correctness & groundedness), classifier accuracy. | — |
 | [`ai_maturity_form_factors_with_evaluation_student.ipynb`](ai_maturity_form_factors_with_evaluation_student.ipynb) | ✏️ Student | Same, with 3 cells to complete | [8](docs/todo8.md)–[10](docs/todo10.md) |
 
 **How a student works through it:** run cells top to bottom → hit a 🧩 **TODO** markdown cell → open the linked `docs/todoN.md` → read the explanation → paste the solution snippet into the placeholder cell → run the ✅ **check** cell (it must pass) → continue.
@@ -110,8 +110,8 @@ Details, architecture, and the graceful-degradation notes are in [`app/README.md
 ```
 ai_maturity_workshop/
 ├── .devcontainer/                 Codespaces / dev-container setup
-├── ai_maturity_form_factors*.ipynb            complete + _student
-├── ai_maturity_form_factors_with_evaluation*.ipynb
+├── ai_maturity_form_factors_{complete,student}.ipynb
+├── ai_maturity_form_factors_with_evaluation_{complete,student}.ipynb
 ├── docs/                          todo1.md … todo10.md (guided fill-ins)
 ├── scripts/                       student-notebook generator
 └── app/                           FastAPI backend + JS frontend
