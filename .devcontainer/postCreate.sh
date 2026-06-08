@@ -19,6 +19,9 @@ echo "▸ Building the Oracle schema + warming the embedding model…"
 ( cd app && python -c "from backend.core.retrieval import store; store.initialize(); print('  retrieval backend:', store.status())" ) \
   || echo "  (Oracle not ready yet — the app will build the schema on first run)"
 
+echo "▸ Seeding the autonomous-builder sample dataset…"
+( cd app && python -c "from backend.core.sandbox import reset_sandbox; reset_sandbox(); print('  sandbox seeded with support_messages.csv')" )
+
 cat <<'EOF'
 
 ✓ Setup complete — the app auto-starts on port 8000 (preview opens automatically).

@@ -13,7 +13,8 @@ Climb from a plain LLM chatbot to an autonomous agent that writes and runs its o
 2. On create, the dev container automatically:
    - starts **Oracle AI Database** (23ai Free) as a service and waits until it's healthy,
    - installs all Python deps + the `claude` CLI,
-   - **builds the database schema** (`acme_docs` table, vector + text indexes, ingested docs) and warms the embedding model,
+   - **builds + seeds the database** (`acme_docs` table, vector + text indexes, all 12 docs ingested) and warms the embedding model,
+   - **seeds the autonomous-builder dataset** (`support_messages.csv` in the sandbox),
    - **auto-starts the app** and opens the **frontend preview** (port 8000).
 3. Open any `.ipynb` and pick the **Python 3.12** kernel — the notebooks connect to the same Oracle instance.
 

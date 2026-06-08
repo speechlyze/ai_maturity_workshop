@@ -9,19 +9,16 @@ ops are confined to a sandbox directory. Mirrors the notebook's builder run.
 """
 from __future__ import annotations
 
-import csv
-
 from fastapi import APIRouter
 
 from backend.config import settings
 from backend.core.agent_runtime import AGENT_AVAILABLE, agent_env, run_agent_events
 from backend.core.anthropic_client import MODEL
+from backend.core.sandbox import SANDBOX, reset_sandbox
 from backend.core.sse import sse_response
 from backend.schemas import BuilderRequest
 
 router = APIRouter(prefix="/api/builder", tags=["builder"])
-
-SANDBOX = settings.sandbox_dir
 
 SYSTEM_PROMPT = "You are an automation engineer. Build the smallest correct solution, then verify it runs."
 
@@ -35,31 +32,8 @@ DEFAULT_TASK = (
     "4. Confirm what you built and show the contents of report.json."
 )
 
-_SEED_ROWS = [
-    {"id": 1, "category": "billing", "message": "I was double charged"},
-    {"id": 2, "category": "technical", "message": "API returns 500 on /v1/sync"},
-    {"id": 3, "category": "billing", "message": "How do I upgrade to Pro?"},
-    {"id": 4, "category": "account", "message": "Need to add a teammate"},
-    {"id": 5, "category": "technical", "message": "Webhooks are not firing"},
-]
-
 _TEXT_EXT = {".py", ".json", ".csv", ".txt", ".md", ".cfg", ".ini", ".sh", ".yaml", ".yml", ".log"}
 _MAX_FILE_BYTES = 20_000
-
-
-def _reset_sandbox() -> None:
-    """Clear the sandbox and drop in the seed dataset, so each run starts clean."""
-    SANDBOX.mkdir(parents=True, exist_ok=True)
-    for child in SANDBOX.iterdir():
-        if child.is_file():
-            child.unlink()
-        else:
-            import shutil
-            shutil.rmtree(child, ignore_errors=True)
-    with open(SANDBOX / "support_messages.csv", "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["id", "category", "message"])
-        writer.writeheader()
-        writer.writerows(_SEED_ROWS)
 
 
 @router.get("/default-task")
@@ -97,7 +71,7 @@ async def run(req: BuilderRequest):
                               "`npm i -g @anthropic-ai/claude-code` to enable Form Factors 4 & 5."}
         return sse_response(unavailable())
 
-    _reset_sandbox()
+    reset_sandbox()
 
     from claude_agent_sdk import ClaudeAgentOptions
 
