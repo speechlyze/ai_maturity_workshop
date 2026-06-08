@@ -8,11 +8,15 @@ if curl -sf -o /dev/null http://127.0.0.1:8000/api/health 2>/dev/null; then
   exit 0
 fi
 
-# Launch fully detached: setsid starts a new session and nohup ignores SIGHUP, so
-# the server survives this lifecycle hook exiting (a plain `&` gets reaped). Use
-# `python -m uvicorn` so it doesn't depend on the console script being on PATH.
-setsid nohup python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 \
-  </dev/null >/tmp/aiml-app.log 2>&1 &
+# Launch fully detached so the server survives this lifecycle hook exiting (a plain
+# `&` gets reaped). setsid (a new session) is the strongest detachment and ships on
+# the Linux dev-container image; fall back to nohup+disown where it's absent (macOS).
+# `python -m uvicorn` avoids depending on the console script being on PATH.
+if command -v setsid >/dev/null 2>&1; then
+  setsid nohup python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 </dev/null >/tmp/aiml-app.log 2>&1 &
+else
+  nohup python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 </dev/null >/tmp/aiml-app.log 2>&1 &
+fi
 disown 2>/dev/null || true
 
 # Wait for it to bind so any startup crash shows up in the creation log.
