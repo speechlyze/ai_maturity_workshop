@@ -10,3 +10,8 @@ numpy>=1.26
 fastembed>=0.8            # torch-free ONNX embeddings for RAG
 oracledb>=3.0            # optional — RAG falls back to in-memory if absent/unreachable
 claude-agent-sdk>=0.2     # Form Factors 4-5 (also needs the `claude` CLI on PATH)
+
+# Used by the workshop NOTEBOOKS (the app itself doesn't import these), kept here
+# so the Codespace's postCreate installs them too.
+pandas>=2.0               # result tables in the RAG / evaluation notebooks
+nest-asyncio>=1.6         # lets the agent SDK's async runtime work inside Jupyter (FF4-5)
