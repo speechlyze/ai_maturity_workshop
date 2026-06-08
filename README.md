@@ -9,12 +9,15 @@ Climb from a plain LLM chatbot to an autonomous agent that writes and runs its o
 ## Quick start
 
 ### In GitHub Codespaces (zero local setup)
-1. Click **Open in GitHub Codespaces** above (or **Code ▸ Codespaces ▸ Create**).
-2. When prompted, set the **`ANTHROPIC_API_KEY`** secret (and optionally `LANGSMITH_API_KEY` for the evaluation notebook). The dev container installs everything on create.
-3. Run the app: `cd app && ./run.sh` → open the forwarded **port 8000**.
-4. Or open any `.ipynb` and pick the **Python 3.12** kernel.
+1. Set your **`ANTHROPIC_API_KEY`** as a Codespaces secret (Settings ▸ Codespaces ▸ Secrets), then click **Open in GitHub Codespaces** above. Optionally add `LANGSMITH_API_KEY` for the evaluation notebook.
+2. On create, the dev container automatically:
+   - starts **Oracle AI Database** (23ai Free) as a service and waits until it's healthy,
+   - installs all Python deps + the `claude` CLI,
+   - **builds the database schema** (`acme_docs` table, vector + text indexes, ingested docs) and warms the embedding model,
+   - **auto-starts the app** and opens the **frontend preview** (port 8000).
+3. Open any `.ipynb` and pick the **Python 3.12** kernel — the notebooks connect to the same Oracle instance.
 
-RAG uses an in-memory vector index in Codespaces (`ORACLE_ENABLED=0`); set it to `1` with a reachable `ORACLE_DSN` to use Oracle AI Database.
+Everything is ready when the Codespace finishes loading — no manual steps. (Need to restart the app? `cd app && ./run.sh`. App logs: `/tmp/aiml-app.log`.) Requesting a **4-core / 16 GB** machine is recommended (set in `.devcontainer`) so Oracle and the app run comfortably.
 
 ### Locally
 ```bash
@@ -73,7 +76,7 @@ Details, architecture, and the graceful-degradation notes are in [`app/README.md
 ## Requirements
 
 - **`ANTHROPIC_API_KEY`** — required everywhere (model defaults to `claude-opus-4-8`). In Codespaces, set it as a secret; locally, put it in a `.env`.
-- **Oracle AI Database** — optional for the app (in-memory fallback); the notebooks' RAG section expects it.
+- **Oracle AI Database** — runs automatically in Codespaces (23ai Free service, schema built on create). Locally it's optional: the app falls back to an in-memory index, and the notebooks read `ORACLE_DSN` (defaulting to `localhost:1521/FREEPDB1`).
 - **Claude Agent SDK + `claude` CLI** — for Form Factors 4 & 5 (the dev container installs it).
 - **`LANGSMITH_API_KEY`** — only for the evaluation notebook.
 

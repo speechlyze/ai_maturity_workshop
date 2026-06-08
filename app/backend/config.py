@@ -58,6 +58,10 @@ class Settings:
     oracle_password: str = os.environ.get("ORACLE_PASSWORD", "VectorPwd_2025")
     oracle_dsn: str = os.environ.get("ORACLE_DSN", "localhost:1521/FREEPDB1")
     oracle_enabled: bool = os.environ.get("ORACLE_ENABLED", "1") not in {"0", "false", "False"}
+    # Retry the first Oracle connect — useful in Codespaces where the DB warms up
+    # alongside the app. Defaults to 1 (no retry) so local fallback stays instant.
+    oracle_connect_retries: int = int(os.environ.get("ORACLE_CONNECT_RETRIES", "1"))
+    oracle_connect_delay: float = float(os.environ.get("ORACLE_CONNECT_DELAY", "3"))
 
     # Agent runtime (Form Factors 4 & 5)
     claude_cli_path: str | None = _find_claude_cli()

@@ -1,0 +1,40 @@
+# Dev container = the `app` service + an Oracle AI Database (23ai Free) service.
+# The full gvenzl image is used on purpose: it ships Oracle Text (CTXSYS), which
+# the keyword / hybrid retrieval paths require. Vector search + SQL property graphs
+# are native to 23ai.
+services:
+  oracle:
+    image: gvenzl/oracle-free:latest
+    restart: unless-stopped
+    shm_size: "1g"
+    environment:
+      ORACLE_PASSWORD: VectorPwd_2025          # SYS / SYSTEM
+      APP_USER: VECTOR                          # the schema the app + notebooks use
+      APP_USER_PASSWORD: VectorPwd_2025
+    volumes:
+      - oracle-data:/opt/oracle/oradata         # persist across container restarts
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 90s
+
+  app:
+    image: mcr.microsoft.com/devcontainers/python:3.12
+    command: sleep infinity
+    volumes:
+      - ../..:/workspaces:cached
+    environment:
+      ORACLE_ENABLED: "1"
+      ORACLE_USER: VECTOR
+      ORACLE_PASSWORD: VectorPwd_2025
+      ORACLE_DSN: oracle:1521/FREEPDB1          # reach the DB by its service name
+      ORACLE_CONNECT_RETRIES: "20"
+      ORACLE_CONNECT_DELAY: "4"
+    depends_on:
+      oracle:
+        condition: service_healthy
+
+volumes:
+  oracle-data:

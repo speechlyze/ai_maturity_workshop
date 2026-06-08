@@ -13,6 +13,7 @@ from __future__ import annotations
 import array
 import re
 import threading
+import time
 from dataclasses import dataclass
 
 import numpy as np
@@ -112,11 +113,23 @@ class VectorStore:
     def _setup_oracle(self) -> None:
         import oracledb
 
-        self._conn = oracledb.connect(
-            user=settings.oracle_user,
-            password=settings.oracle_password,
-            dsn=settings.oracle_dsn,
-        )
+        # Retry the connect so the app reliably attaches while Oracle is still
+        # warming up (e.g. in Codespaces). Retries default to 1 locally.
+        last_exc: Exception | None = None
+        for attempt in range(1, max(1, settings.oracle_connect_retries) + 1):
+            try:
+                self._conn = oracledb.connect(
+                    user=settings.oracle_user,
+                    password=settings.oracle_password,
+                    dsn=settings.oracle_dsn,
+                )
+                break
+            except Exception as exc:  # noqa: BLE001
+                last_exc = exc
+                if attempt < settings.oracle_connect_retries:
+                    time.sleep(settings.oracle_connect_delay)
+        else:
+            raise last_exc if last_exc else RuntimeError("Oracle connect failed")
         dim = self.dim
         table_ddl = f"""
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE acme_docs CASCADE CONSTRAINTS PURGE';

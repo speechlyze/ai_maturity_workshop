@@ -12,11 +12,17 @@ python -m pip install jupyterlab ipykernel langsmith
 echo "▸ Installing the Claude Agent CLI (Form Factors 4 & 5)…"
 npm install -g @anthropic-ai/claude-code || echo "  (skipped — the agent pages will show an install hint)"
 
+echo "▸ Building the Oracle schema + warming the embedding model…"
+# store.initialize() connects to Oracle (retrying while it warms up), creates the
+# acme_docs table + vector/text indexes, ingests the docs, and downloads the
+# fastembed model — so the database and the app are ready the moment you arrive.
+( cd app && python -c "from backend.core.retrieval import store; store.initialize(); print('  retrieval backend:', store.status())" ) \
+  || echo "  (Oracle not ready yet — the app will build the schema on first run)"
+
 cat <<'EOF'
 
-✓ Setup complete.
-  • Start the app:  cd app && ./run.sh        (→ forwarded on port 8000)
-  • Notebooks:      open any .ipynb, choose the Python 3.12 kernel
-  • RAG runs on the in-memory backend here (ORACLE_ENABLED=0). To use Oracle,
-    set ORACLE_ENABLED=1 and point ORACLE_DSN at a reachable database.
+✓ Setup complete — the app auto-starts on port 8000 (preview opens automatically).
+  • Restart it manually:  cd app && ./run.sh
+  • App logs:             /tmp/aiml-app.log
+  • Notebooks:            open any .ipynb, choose the Python 3.12 kernel
 EOF
