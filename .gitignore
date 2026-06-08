@@ -1,0 +1,24 @@
+# Secrets — never commit real keys. .env.example (placeholder template) is kept.
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+
+# Form Factor 5 sandbox — runtime scratch, re-seeded on each builder run
+app/backend/sandbox/
+
+# Caches / models
+.cache/
+*.onnx
+
+# OS / editor
+.DS_Store
+.vscode/
+node_modules/

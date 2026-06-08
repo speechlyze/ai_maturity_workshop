@@ -1,0 +1,31 @@
+{
+  "name": "AI Maturity Ladder",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
+  },
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "AI Maturity Ladder app", "onAutoForward": "openPreview" }
+  },
+  "containerEnv": {
+    "ORACLE_ENABLED": "0",
+    "HOST": "0.0.0.0",
+    "AIML_MODEL": "claude-opus-4-8"
+  },
+  "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "Anthropic API key — required for all five form factors.",
+      "documentationUrl": "https://console.anthropic.com/settings/keys"
+    },
+    "LANGSMITH_API_KEY": {
+      "description": "Optional — only used by the evaluation notebook (LangSmith experiments)."
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-toolsai.jupyter"]
+    }
+  }
+}
