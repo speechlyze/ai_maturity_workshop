@@ -15,3 +15,4 @@ claude-agent-sdk>=0.2     # Form Factors 4-5 (also needs the `claude` CLI on PAT
 # so the Codespace's postCreate installs them too.
 pandas>=2.0               # result tables in the RAG / evaluation notebooks
 nest-asyncio>=1.6         # lets the agent SDK's async runtime work inside Jupyter (FF4-5)
+matplotlib>=3.7           # retriever-comparison charts in the evaluation notebook
