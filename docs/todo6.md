@@ -1,5 +1,7 @@
 # 🧩 TODO 6 — Give the agent a tool
 
+<img src="../images/four_faculties_of_an_agent.png" alt="The four faculties of an agent" width="760">
+
 An **agent** is an LLM in a loop with tools — *it* decides which tool to call and when. Your job is
 to hand it good tools. The `@tool` decorator turns an ordinary async function into one the agent
 can invoke; the **description** is how the model knows when to reach for it, so write it well.

@@ -1,5 +1,7 @@
 # 🧩 TODO 3 — A grounded, cited RAG answer
 
+<img src="../images/form_factor_2_rag_pipeline.png" alt="Anatomy of a RAG pipeline" width="760">
+
 **RAG = Retrieve, then Generate.** Instead of hoping the model knows your private facts, you fetch
 the relevant documents and hand them to the model *inside the prompt*, with strict instructions to
 answer **only** from that material and to **cite** its sources. This grounds the answer in real

@@ -33,6 +33,7 @@ SPECS: list[dict] = [
     # ───────────────────────── Form-factors notebook ─────────────────────────
     {
         "nb": "ff", "num": 1, "title": "Give the chatbot a memory",
+        "img": "resending_messages.png", "img_alt": "Memory by re-sending the whole conversation",
         "locator": "class Chatbot:",
         "stub": '''class Chatbot:
     """A multi-turn chatbot. The 'memory' is just a growing list of messages we resend."""
@@ -76,6 +77,7 @@ Fill in `Chatbot.send(user_message)` so that it:
     },
     {
         "nb": "ff", "num": 2, "title": "Semantic search with Oracle vectors",
+        "img": "vector_search_embedding_space.png", "img_alt": "Vector search retrieves by meaning",
         "locator": "def vector_search(query: str, k: int = 5):",
         "stub": '''def vector_search(query: str, k: int = 5):
     # 🧩 TODO 2 — semantic (vector) search in Oracle AI Database. See docs/todo2.md
@@ -108,6 +110,7 @@ Write `vector_search(query, k)` to:
     },
     {
         "nb": "ff", "num": 3, "title": "A grounded, cited RAG answer",
+        "img": "form_factor_2_rag_pipeline.png", "img_alt": "Anatomy of a RAG pipeline",
         "locator": "def rag_answer(query: str, k: int = 3) -> str:",
         "stub": '''def rag_answer(query: str, k: int = 3) -> str:
     # 🧩 TODO 3 — retrieve, build a numbered context, then generate a cited answer. See docs/todo3.md
@@ -171,6 +174,7 @@ Write `classify(message)` to call the model with a JSON-schema constraint and pa
     },
     {
         "nb": "ff", "num": 5, "title": "Orchestrate the workflow pipeline",
+        "img": "form_factor_3_workflow.png", "img_alt": "Your code orchestrates the LLM",
         "locator": "def handle_support_message(message: str, max_revisions: int = 1) -> dict:",
         "stub": '''def handle_support_message(message: str, max_revisions: int = 1) -> dict:
     # 🧩 TODO 5 — orchestrate: classify → route → retrieve → draft → review/revise. See docs/todo5.md
@@ -208,6 +212,7 @@ Write `handle_support_message(message, max_revisions)`:
     },
     {
         "nb": "ff", "num": 6, "title": "Give the agent a tool",
+        "img": "four_faculties_of_an_agent.png", "img_alt": "The four faculties of an agent",
         "locator": "async def search_docs(args):",
         "stub": '''@tool(
     "search_docs",
@@ -407,8 +412,12 @@ def cell_code(text: str, cid: str) -> dict:
 
 
 def write_doc(spec: dict, solution: str) -> None:
+    img_md = ""
+    if spec.get("img"):
+        img_md = f'<img src="../images/{spec["img"]}" alt="{spec.get("img_alt", "")}" width="760">\n\n'
     body = (
         f"# 🧩 TODO {spec['num']} — {spec['title']}\n\n"
+        f"{img_md}"
         f"{spec['teach']}\n\n"
         f"## ✅ Solution\n\n"
         f"Replace the placeholder cell with this, then run the **`✅ TODO {spec['num']} check`** cell:\n\n"

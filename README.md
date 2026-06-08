@@ -2,6 +2,8 @@
 
 Climb from a plain LLM chatbot to an autonomous agent that writes and runs its own code — **one rung at a time**. A hands-on workshop (notebooks) plus a polished web app, built around a single running example: a support assistant for the fictional **Acme Cloud**, implemented five ways.
 
+<img src="images/form_factors.png" alt="The AI Maturity Ladder — Five Form Factors of AI Applications" width="900">
+
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/speechlyze/ai_maturity_workshop?quickstart=1)
 
 ---
@@ -62,6 +64,8 @@ The workshop ships **complete** notebooks (the reference) and **student** notebo
 
 A FastAPI + vanilla-JS app (sleek, light/dark) that turns the five form factors into an interactive UI — the sidebar is a literal ladder. Everything streams over SSE.
 
+<img src="images/app_overview.png" alt="The AI Maturity Ladder app — overview / ladder home page" width="900">
+
 | # | Page | Form factor | What it shows |
 |---|---|---|---|
 | 1 | LLM Chatbot | The Chatbot | Multi-turn chat; "memory" = the growing message list re-sent each turn |
@@ -69,6 +73,26 @@ A FastAPI + vanilla-JS app (sleek, light/dark) that turns the five form factors 
 | 3 | LLM Workflow | The LLM-Driven Workflow | classify → route → retrieve → draft → review/revise, streamed stage by stage |
 | 4 | Autonomous Agent | The Agent | Tool-using agent (`search_docs`, `create_support_ticket`); the model picks the path |
 | 5 | Agent That Builds | The Autonomous Agent | Writes a script, runs it, fixes its own errors in a sandbox; inspect the artifacts |
+
+<details>
+<summary><b>See each page</b></summary>
+
+**1 · LLM Chatbot**
+<img src="images/app_chatbot.png" alt="LLM Chatbot page" width="820">
+
+**2 · RAG Chatbot**
+<img src="images/app_rag.png" alt="RAG Chatbot page" width="820">
+
+**3 · LLM Workflow**
+<img src="images/app_workflow.png" alt="LLM Workflow page" width="820">
+
+**4 · Autonomous Agent**
+<img src="images/app_agent.png" alt="Autonomous Agent page" width="820">
+
+**5 · Agent That Builds**
+<img src="images/app_builder.png" alt="Agent That Builds page" width="820">
+
+</details>
 
 Details, architecture, and the graceful-degradation notes are in [`app/README.md`](app/README.md).
 

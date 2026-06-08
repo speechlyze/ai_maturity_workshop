@@ -1,5 +1,7 @@
 # 🧩 TODO 2 — Semantic search with Oracle vectors
 
+<img src="../images/vector_search_embedding_space.png" alt="Vector search retrieves by meaning" width="760">
+
 Keyword search matches *words*. **Vector search** matches *meaning*: every document was embedded
 into a 768-dimensional vector, and a question that means the same thing lands nearby — even with
 no shared words. Oracle AI Database stores those vectors in a native `VECTOR` column and ranks

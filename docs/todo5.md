@@ -1,5 +1,7 @@
 # 🧩 TODO 5 — Orchestrate the workflow pipeline
 
+<img src="../images/form_factor_3_workflow.png" alt="Your code orchestrates the LLM" width="760">
+
 This is the heart of the **workflow** form factor: *your code* — not the model — decides the
 sequence. The model fills in each step; you wire them together and add the checks. The pipeline is
 fixed and predictable: **classify → route → retrieve → draft → review (and maybe revise)**.

@@ -6,6 +6,8 @@ into an interactive, sleek (light/dark) web app. The sidebar is a literal ladder
 each rung is one of the five AI form factors, climbing from a plain chatbot to an
 autonomous agent that writes and runs its own code.
 
+<img src="../images/app_overview.png" alt="App overview — the ladder home page" width="900">
+
 | # | Form factor | Page | What it shows |
 |---|-------------|------|----------------|
 | 1 | **LLM Chatbot** | `#/chatbot` | Multi-turn chat; "memory" = the growing message list re-sent each turn (streamed). |
@@ -13,6 +15,21 @@ autonomous agent that writes and runs its own code.
 | 3 | **LLM Workflow** | `#/workflow` | Fixed pipeline — classify → route → retrieve → draft → review/revise — streamed stage by stage. |
 | 4 | **Autonomous Agent** | `#/agent` | A tool-using agent (`search_docs`, `create_support_ticket`); the model chooses the path. |
 | 5 | **Agent That Builds** | `#/builder` | Writes a Python script, runs it, fixes its own errors in a sandbox; inspect the artifacts. |
+
+<details>
+<summary><b>Screens — one per form factor</b></summary>
+
+**1 · LLM Chatbot** &nbsp; <img src="../images/app_chatbot.png" alt="LLM Chatbot page" width="820">
+
+**2 · RAG Chatbot** &nbsp; <img src="../images/app_rag.png" alt="RAG Chatbot page" width="820">
+
+**3 · LLM Workflow** &nbsp; <img src="../images/app_workflow.png" alt="LLM Workflow page" width="820">
+
+**4 · Autonomous Agent** &nbsp; <img src="../images/app_agent.png" alt="Autonomous Agent page" width="820">
+
+**5 · Agent That Builds** &nbsp; <img src="../images/app_builder.png" alt="Agent That Builds page" width="820">
+
+</details>
 
 ## Run
 

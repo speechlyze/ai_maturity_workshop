@@ -1,5 +1,7 @@
 # 🧩 TODO 1 — Give the chatbot a memory
 
+<img src="../images/resending_messages.png" alt="Memory by re-sending the whole conversation" width="760">
+
 A bare LLM call is **stateless** — the model sees only what you send in that one request and
 remembers nothing afterwards. So how does a chatbot "remember" your name from three turns ago?
 
