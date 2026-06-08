@@ -22,6 +22,16 @@ Climb from a plain LLM chatbot to an autonomous agent that writes and runs its o
 
 Everything is ready when the Codespace finishes loading — no manual steps. (Need to restart the app? `cd app && ./run.sh`. App logs: `/tmp/aiml-app.log`.) Requesting a **4-core / 16 GB** machine is recommended (set in `.devcontainer`) so Oracle and the app run comfortably.
 
+> [!IMPORTANT]
+> **Opening the app — and fixing a "502 / This page isn't working".**
+> Open the app from the **Ports** panel (next to the Terminal) → port **`8000`** → 🌐 **Open in Browser**.
+> If the `…-8000.app.github.dev` URL shows **HTTP 502**, the server is almost always fine — it's the GitHub **port‑forward tunnel**, not the app. Fix it: in the **Ports** panel, **right‑click `8000` → Port Visibility** (or **Stop Forwarding**, then re‑open the port), and reload the page.
+> To be sure which it is, run this in the terminal:
+> ```bash
+> curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/api/health
+> ```
+> **`200`** → the app is up, so the 502 is just forwarding (re‑toggle the port). **Anything else** → the app is down: start it with `cd app && ./run.sh` and check `/tmp/aiml-app.log`.
+
 ### Locally
 ```bash
 cd app && ./run.sh          # uses the `dbtlabs` conda env if present → http://127.0.0.1:8000

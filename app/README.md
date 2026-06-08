@@ -49,6 +49,14 @@ pip install "fastapi>=0.110"
 uvicorn backend.main:app --reload --port 8000   # run from app/
 ```
 
+> [!IMPORTANT]
+> **In a Codespace, open the app from the Ports panel → port `8000` → 🌐 Open in Browser.** If the
+> forwarded `…-8000.app.github.dev` URL shows **HTTP 502**, it's the port‑forward tunnel, not the
+> app — **right‑click `8000` → Port Visibility** (or Stop Forwarding, then re‑open) and reload.
+> Confirm with `curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/api/health`: `200`
+> means the app is up (just forwarding); anything else means it's down (`cd app && ./run.sh`,
+> logs in `/tmp/aiml-app.log`).
+
 ## Requirements & graceful degradation
 
 - **`ANTHROPIC_API_KEY`** — required. Read from `app/.env`, or the workshop's
