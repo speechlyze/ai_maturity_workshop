@@ -2,7 +2,7 @@
 
 Climb from a plain LLM chatbot to an autonomous agent that writes and runs its own code — **one rung at a time**. A hands-on workshop (notebooks) plus a polished web app, built around a single running example: a support assistant for the fictional **Acme Cloud**, implemented five ways.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AscXend/ai_maturity_workshop?quickstart=1)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/speechlyze/ai_maturity_workshop?quickstart=1)
 
 ---
 
